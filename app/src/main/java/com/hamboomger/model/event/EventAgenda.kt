@@ -13,12 +13,14 @@ class EventAgenda private constructor(builder: Builder) {
         val appointments = mutableListOf<Appointment>()
         val additionalInfo = StringBuilder()
 
-        fun addAppointment(startTime: LocalTime, description: String) {
-            appointments.add(Appointment(startTime, description))
+        fun addAppointment(appointment: Appointment) : Builder {
+            appointments.add(appointment)
+            return this
         }
 
-        fun addAdditionalInfo(info : String) {
+        fun addAdditionalInfo(info : String) : Builder {
             additionalInfo.appendln(info)
+            return this
         }
 
         fun build() : EventAgenda = EventAgenda(this)
