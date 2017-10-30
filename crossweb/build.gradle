@@ -1,0 +1,10 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+springBoot {
+    mainClass = 'com.hamboomger.MainApplication'
+}
+
+dependencies {
+    compile project(':app')
+}
