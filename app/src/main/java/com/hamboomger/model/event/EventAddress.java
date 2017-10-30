@@ -1,8 +1,15 @@
 package com.hamboomger.model.event;
 
+import org.springframework.data.annotation.AccessType;
+
+import javax.persistence.Access;
+import javax.persistence.Embeddable;
+
 /**
  * @author ddorochov
  */
+@Embeddable
+@Access(javax.persistence.AccessType.FIELD)
 public class EventAddress {
 	private String city;
 	private String place;
@@ -13,6 +20,8 @@ public class EventAddress {
 		this.place = place;
 		this.fullAddress = fullAddress;
 	}
+
+	protected EventAddress() {}
 
 	public String getCity() {
 		return city;
