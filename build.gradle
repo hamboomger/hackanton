@@ -2,18 +2,14 @@ apply plugin: 'java'
 
 version = '0.1'
 
-ext {
-    kotlin_version = '1.1.51'
-}
-
 subprojects {
     apply plugin: 'java'
 
     sourceCompatibility = 1.8
 
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-        testCompile group: 'junit', name: 'junit', version: '4.12'
+        compile group: 'org.jetbrains', name: 'annotations', version: '13.0'
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
     repositories {
@@ -23,10 +19,10 @@ subprojects {
     buildscript {
         repositories {
             mavenCentral()
+            jcenter()
         }
         dependencies {
             classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.8.RELEASE")
-            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         }
     }
 }
