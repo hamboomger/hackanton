@@ -1,6 +1,7 @@
 package com.hamboomger.model.filter;
 
 import com.hamboomger.model.common.Appointment;
+import com.hamboomger.model.common.BaseWordsSearchStrategy;
 import com.hamboomger.model.common.exception.EntityBuildingException;
 import com.hamboomger.model.event.EventAgenda;
 import com.hamboomger.model.event.IEvent;
@@ -14,8 +15,10 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * @author ddorochov
@@ -28,46 +31,6 @@ public class KeywordsEventsFilterTest {
 	private String[] agendaKeywords = {"Kotlin", "Ruby on Rails"};
 	private String[] missingKeywords = {"Java", "AngularJS", "Groovy on Rails"};
 
-	@Test
-	public void checkWhenDescriptionContainsWord() {
-		//arrange
-		KeywordsEventsFilter filter = new KeywordsEventsFilter(Arrays.asList(descriptionKeywords));
-		//act
-		boolean result = filter.apply(commonEvent);
-		//assert
-		assertTrue(result);
-	}
-
-	@Test
-	public void checkWhenAgendaContainsWord() {
-		//arrange
-		KeywordsEventsFilter filter = new KeywordsEventsFilter(Arrays.asList(agendaKeywords));
-		//act
-		boolean result = filter.apply(commonEvent);
-		//assert
-		assertTrue(result);
-	}
-
-	@Test
-	public void checkWhenThereIsNoWord() {
-		//arrange
-		KeywordsEventsFilter filter = new KeywordsEventsFilter(Arrays.asList(missingKeywords));
-		//act
-		boolean result = filter.apply(commonEvent);
-		//assert
-		assertFalse(result);
-	}
-
-	@Test(expected = EntityBuildingException.class)
-	public void checkWhenNoWordsPassed() {
-		//arrange
-		KeywordsEventsFilter filter = new KeywordsEventsFilter(new ArrayList<>());
-		//act
-		boolean result = filter.apply(commonEvent);
-		//assert
-		assertFalse(result);
-	}
-
 	@Before
 	public void initCommonEvent() throws IOException {
 		InputStream is = getClass().getResourceAsStream("/event_description.txt");
@@ -77,6 +40,64 @@ public class KeywordsEventsFilterTest {
 		this.commonEvent = mock(IEvent.class);
 		when(commonEvent.getAgenda()).thenReturn(agenda);
 		when(commonEvent.getDescription()).thenReturn(description);
+	}
+
+	@Test
+	public void checkWhenKeywordIsPartOfBiggerWord() {
+		//arrange
+		KeywordsEventsFilter filter = new KeywordsEventsFilter(
+				Arrays.asList("Java"), new BaseWordsSearchStrategy()
+		);
+		//act
+		boolean result = filter.apply(commonEvent);
+		//assert
+		assertFalse(result);
+	}
+
+	@Test
+	public void checkWhenDescriptionContainsWord() {
+		//arrange
+		KeywordsEventsFilter filter = new KeywordsEventsFilter(
+				Arrays.asList(descriptionKeywords), new BaseWordsSearchStrategy()
+		);
+		//act
+		boolean result = filter.apply(commonEvent);
+		//assert
+		assertTrue(result);
+	}
+
+	@Test
+	public void checkWhenAgendaContainsWord() {
+		//arrange
+		KeywordsEventsFilter filter = new KeywordsEventsFilter(
+				Arrays.asList(agendaKeywords), new BaseWordsSearchStrategy()
+		);
+		//act
+		boolean result = filter.apply(commonEvent);
+		//assert
+		assertTrue(result);
+	}
+
+	@Test
+	public void checkWhenThereIsNoWord() {
+		//arrange
+		KeywordsEventsFilter filter = new KeywordsEventsFilter(
+				Arrays.asList(missingKeywords), new BaseWordsSearchStrategy()
+		);
+		//act
+		boolean result = filter.apply(commonEvent);
+		//assert
+		assertFalse(result);
+	}
+
+	@Test(expected = EntityBuildingException.class)
+	public void checkWhenNoWordsPassed() {
+		//arrange
+		KeywordsEventsFilter filter = new KeywordsEventsFilter(new ArrayList<>(), new BaseWordsSearchStrategy());
+		//act
+		boolean result = filter.apply(commonEvent);
+		//assert
+		assertFalse(result);
 	}
 
 	private EventAgenda initAgenda() {

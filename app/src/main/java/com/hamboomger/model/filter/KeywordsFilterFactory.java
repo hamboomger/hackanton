@@ -1,9 +1,8 @@
 package com.hamboomger.model.filter;
 
-import com.hamboomger.model.event.IEvent;
+import com.hamboomger.model.common.BaseWordsSearchStrategy;
 import com.hamboomger.model.search.EventsSearchConfiguration;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -18,6 +17,6 @@ public class KeywordsFilterFactory implements ISinglePropertyFilterFactory {
 		if(keywords.isEmpty())
 			return null;
 		else
-			return new KeywordsEventsFilter(keywords);
+			return new KeywordsEventsFilter(keywords, new BaseWordsSearchStrategy());
 	}
 }

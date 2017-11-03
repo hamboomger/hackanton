@@ -1,32 +1,36 @@
 package com.hamboomger.model.filter;
 
 import com.hamboomger.model.common.Appointment;
+import com.hamboomger.model.common.IWordsSearchStrategy;
 import com.hamboomger.model.event.EventAgenda;
 import com.hamboomger.model.event.IEvent;
 
 import java.util.List;
 
-import static com.hamboomger.util.EntityBuildingToolkit.*;
+import static com.hamboomger.util.EntityBuildingToolkit.checkNullOrEmpty;
 
 /**
  * @author ddorochov
  */
 
 public class KeywordsEventsFilter implements IEventsFilter {
-	private List<String> keywords;
 
-	KeywordsEventsFilter(List<String> keywords) {
+	private List<String> keywords;
+	private IWordsSearchStrategy searchStrategy;
+
+	KeywordsEventsFilter(List<String> keywords, IWordsSearchStrategy searchStrategy) {
 		checkNullOrEmpty(keywords, "keywords");
 
 		this.keywords = keywords;
+		this.searchStrategy = searchStrategy;
 	}
 
 	@Override
 	public boolean apply(IEvent event) {
 		for(String keyword : keywords) {
-			boolean eventContainsKeyword =
-					checkInDescription(keyword, event) ||
-					checkInAgenda(keyword, event);
+			boolean eventContainsKeyword = checkInDescription(keyword, event);
+			if(!eventContainsKeyword)
+				eventContainsKeyword = checkInAgenda(keyword, event);
 
 			if(!eventContainsKeyword) return false;
 		}
@@ -36,7 +40,7 @@ public class KeywordsEventsFilter implements IEventsFilter {
 
 	private boolean checkInDescription(String keyword, IEvent event) {
 		String description = event.getDescription();
-		return containsIgnoreCase(description, keyword);
+		return searchStrategy.textContains(description, keyword);
 	}
 
 	private boolean checkInAgenda(String keyword, IEvent event) {
@@ -45,16 +49,12 @@ public class KeywordsEventsFilter implements IEventsFilter {
 
 		for(Appointment appointment : agenda.getAppointments()) {
 			String appointmentDescription = appointment.getDescription();
-			if(containsIgnoreCase(appointmentDescription, keyword))
+			if(searchStrategy.textContains(appointmentDescription, keyword))
 				return true;
 		}
 
 		String additionalInfo = agenda.getAdditionalInfo();
-		return containsIgnoreCase(additionalInfo, keyword);
-	}
-
-	private boolean containsIgnoreCase(String sourceString, String targetString) {
-		return sourceString.toLowerCase().contains(targetString.toLowerCase());
+		return searchStrategy.textContains(additionalInfo, keyword);
 	}
 
 }
