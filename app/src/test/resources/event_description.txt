@@ -1,0 +1,7 @@
+Come see a demonstration on how to interact with an open-source brain-computer interface via JavaScript.
+Alex has been working with the OpenBCI team in order to visualize and interpret brainwaves in the browser with Angular.
+Find out how your thoughts are captured and how to get involved in the NeuroTech community.
+
+Several of our regulars are going to go over weird and cool Python stuff: parts of the standard library you might not know,
+weird syntactical oddities, how Python works internally, and other stuff you can use to impress people.
+
