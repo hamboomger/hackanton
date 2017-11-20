@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+</head>
+<body>
+<section class="hero is-success is-fullheight">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="column is-half-desktop is-half-tablet is-5-widescreen is-offset-3">
+                <h3 class="title has-text-grey">Login</h3>
+                <p class="subtitle has-text-grey">Please enter your username and password.</p>
+                <div class="box">
+                    <figure class="avatar">
+                        <img src="https://placehold.it/128x128" />
+                    </figure>
+                    <form th:action="@{/login}" method="post">
+                        <div class="field">
+                            <div class="control">
+                                <input id="username" class="input is-large"
+                                       placeholder="Username" autofocus="">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <input id="password" class="input is-large"
+                                       type="password" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <!--suppress ThymeleafVariablesResolveInspection -->
+                        <p th:if="${param.error}" class="field has-text-danger" th:value="${param.error}">
+
+                        </p>
+
+                        <p class="field is-size-5 has-text-weight-light has-text-left">
+                            First time? Visit
+                            <a class="has-text-info" th:href="@{/registration}">registration</a> page
+                        </p>
+
+                        <input type="submit" class="button is-info is-large" value="Login"/>
+                    </form>
+                </div>
+                <p class="has-text-grey">
+                    <a th:href="@{/registration}">Sign Up</a> |
+                    <a href="#">Forgot password?</a> |
+                    <a href="#">Need Help?</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
