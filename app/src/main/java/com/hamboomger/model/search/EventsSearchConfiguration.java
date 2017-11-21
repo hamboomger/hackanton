@@ -1,12 +1,12 @@
 package com.hamboomger.model.search;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hamboomger.model.common.User;
 import com.hamboomger.model.event.EventType;
 import com.hamboomger.model.event.PriceType;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +16,8 @@ import java.util.List;
 public class EventsSearchConfiguration {
 
 	@Id
-	private String username;
+	@GeneratedValue
+	private long id;
 
 	@ElementCollection
 	private List<String> keywords;
@@ -27,19 +28,13 @@ public class EventsSearchConfiguration {
 	@Column
 	private PriceType priceType;
 
-	public EventsSearchConfiguration(String username, List<String> keywords,
-									 List<EventType> eventTypes, PriceType priceType) {
-		this.username = username;
+	public EventsSearchConfiguration(List<String> keywords, List<EventType> eventTypes, PriceType priceType) {
 		this.keywords = keywords;
 		this.eventTypes = eventTypes;
 		this.priceType = priceType;
 	}
 
 	protected EventsSearchConfiguration() {}
-
-	public String getUsername() {
-		return username;
-	}
 
 	public List<String> getKeywords() {
 		return keywords;
@@ -52,4 +47,5 @@ public class EventsSearchConfiguration {
 	public PriceType getPriceType() {
 		return priceType;
 	}
+
 }
