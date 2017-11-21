@@ -23,21 +23,21 @@
                     <form th:action="@{/login}" method="post">
                         <div class="field">
                             <div class="control">
-                                <input id="username" class="input is-large"
+                                <input id="username" name="username" class="input is-large"
                                        placeholder="Username" autofocus="">
                             </div>
                         </div>
 
                         <div class="field">
                             <div class="control">
-                                <input id="password" class="input is-large"
+                                <input id="password" name="password" class="input is-large"
                                        type="password" placeholder="Password">
                             </div>
                         </div>
 
                         <!--suppress ThymeleafVariablesResolveInspection -->
                         <p th:if="${param.error}" class="field has-text-danger" th:value="${param.error}">
-
+                            <span class="is-size-6">Incorrect login or password</span>
                         </p>
 
                         <p class="field is-size-5 has-text-weight-light has-text-left">
