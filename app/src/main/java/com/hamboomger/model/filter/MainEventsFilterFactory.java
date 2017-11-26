@@ -4,6 +4,7 @@ import com.hamboomger.model.search.EventsSearchConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,6 +18,10 @@ public class MainEventsFilterFactory implements IEventsFilterFactory {
 	@Autowired(required = false)
 	public MainEventsFilterFactory(List<ISinglePropertyFilterFactory> filterFactories) {
 		this.filterFactories = filterFactories;
+	}
+
+	public MainEventsFilterFactory() {
+		this.filterFactories = new ArrayList<>();
 	}
 
 	@Override
