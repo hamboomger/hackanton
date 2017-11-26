@@ -17,6 +17,7 @@ import java.util.Arrays;
  * @author ddorochov
  */
 @Service
+@Transactional
 public class UserService {
 
 	private final UserRepository userRepository;
