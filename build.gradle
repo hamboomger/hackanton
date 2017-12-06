@@ -14,7 +14,7 @@ subprojects {
         compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
 
         compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.40'
-
+        
         testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
