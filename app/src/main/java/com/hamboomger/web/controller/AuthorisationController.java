@@ -38,7 +38,7 @@ public class AuthorisationController {
 		return "registration";
 	}
 
-	@PostMapping("/registration")
+	@PostMapping("/registration")	// TODO use UserDTO instead of user to transfer data
 	public String registerNewUser(@Valid User user, BindingResult result, Model model) {
 		checkUsername(user, result);
 		checkEmail(user, result);
