@@ -23,6 +23,8 @@ public class CurrentUserProvider implements ICurrentUserProvider {
 	@Override
 	public User getCurrentUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(auth == null) return null;
+
 		String userName = auth.getName();
 		return userService.findByName(userName);
 	}
