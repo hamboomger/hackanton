@@ -1,12 +1,14 @@
 package com.hamboomger.crossweb.model;
 
+import java.util.List;
+
 /**
  * Created by Medai on 06.12.2017.
  */
 public class CrossWebEventArticleTest {
     String nameOfEvent;
     String eventType;
-    String topic;
+    List<String> topic;
     String date; // type date?
     String time;
     String language;
@@ -15,27 +17,12 @@ public class CrossWebEventArticleTest {
     String place;
     String address;
     String linkOnEvent;
-    String speaker;
+    String speakers;
+    String description;
+    String linkOnFacebook;
+    String linkOnRegistration;
 
-    @Override
-    public String toString() {
-        return "CrossWebEventArticleTest{"+"\n" +
-                "nameOfEvent='" + nameOfEvent + '\''+"\n" +
-                ", eventType='" + eventType + '\''+"\n" +
-                ", topic='" + topic + '\''+"\n" +
-                ", date='" + date + '\''+"\n" +
-                ", time='" + time + '\''+"\n" +
-                ", language='" + language + '\''+"\n" +
-                ", price='" + price + '\''+"\n" +
-                ", city='" + city + '\''+"\n" +
-                ", place='" + place + '\''+"\n" +
-                ", address='" + address + '\''+"\n" +
-                ", linkOnEvent='" + linkOnEvent + '\''+"\n" +
-                ", speaker='" + speaker + '\''+"\n" +
-                '}';
-    }
-
-    public CrossWebEventArticleTest(String nameOfEvent, String eventType, String topic, String date, String time, String language, String price, String city, String place, String address, String linkOnEvent, String speaker) {
+    public CrossWebEventArticleTest(String nameOfEvent, String eventType, List<String> topic, String date, String time, String language, String price, String city, String place, String address, String linkOnEvent, String speakers, String description, String linkOnFacebook, String linkOnRegistration) {
         this.nameOfEvent = nameOfEvent;
         this.eventType = eventType;
         this.topic = topic;
@@ -47,7 +34,64 @@ public class CrossWebEventArticleTest {
         this.place = place;
         this.address = address;
         this.linkOnEvent = linkOnEvent;
-        this.speaker = speaker;
+        this.speakers = speakers;
+        this.description = description;
+        this.linkOnFacebook = linkOnFacebook;
+        this.linkOnRegistration = linkOnRegistration;
+    }
+
+    @Override
+    public String toString() {
+        return "CrossWebEventArticleTest{" +
+                "nameOfEvent='" + nameOfEvent +'\n'+ '\'' +
+                ", eventType='" + eventType +'\n'+ '\'' +
+                ", topic=" + topic +'\n'+
+                ", date='" + date +'\n'+ '\'' +
+                ", time='" + time +'\n'+ '\'' +
+                ", language='" + language +'\n'+ '\'' +
+                ", price='" + price +'\n'+ '\'' +
+                ", city='" + city +'\n'+ '\'' +
+                ", place='" + place +'\n'+ '\'' +
+                ", address='" + address +'\n'+ '\'' +
+                ", linkOnEvent='" + linkOnEvent +'\n'+ '\'' +
+                ", speakers='" + speakers +'\n'+ '\'' +
+                ", description='" + description +'\n'+ '\'' +
+                ", linkOnFacebook='" + linkOnFacebook +'\n'+ '\'' +
+                ", linkOnRegistration='" + linkOnRegistration +'\n'+ '\'' +
+                '}';
+    }
+
+    public String getSpeakers() {
+        return speakers;
+    }
+
+    public void setSpeakers(String speakers) {
+        this.speakers = speakers;
+    }
+
+    public String getLinkOnFacebook() {
+        return linkOnFacebook;
+    }
+
+    public void setLinkOnFacebook(String linkOnFacebook) {
+        this.linkOnFacebook = linkOnFacebook;
+    }
+
+    public String getLinkOnRegistration() {
+        return linkOnRegistration;
+    }
+
+    public void setLinkOnRegistration(String linkOnRegistration) {
+        this.linkOnRegistration = linkOnRegistration;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getNameOfEvent() {
@@ -66,11 +110,11 @@ public class CrossWebEventArticleTest {
         this.eventType = eventType;
     }
 
-    public String getTopic() {
+    public List<String> getTopic() {
         return topic;
     }
 
-    public void setTopic(String topic) {
+    public void setTopic(List<String> topic) {
         this.topic = topic;
     }
 
@@ -139,11 +183,11 @@ public class CrossWebEventArticleTest {
     }
 
     public String getSpeaker() {
-        return speaker;
+        return speakers;
     }
 
     public void setSpeaker(String speaker) {
-        this.speaker = speaker;
+        this.speakers = speaker;
     }
 
 
