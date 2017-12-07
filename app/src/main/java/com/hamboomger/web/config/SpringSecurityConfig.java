@@ -18,6 +18,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	// TODO add password encoder
+
 	@Autowired
 	private DataSource dataSource;
 
