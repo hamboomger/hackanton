@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hackanton - Home page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css"
+          integrity="sha256-HEtF7HLJZSC3Le1HcsWbz1hDYFPZCqDhZa9QsCgVUdw=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/home.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/search.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script th:src="@{/js/home.js}"></script>
+</head>
+<body>
+
+<section class="hero is-primary">
+    <div class="hero-head">
+        <nav class="navbar">
+            <div class="container">
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                    <div class="navbar-end">
+                        <span class="navbar-item">
+                            <a href="https://github.com/hamboomger/hackanton" target="_blank"
+                               class="button is-primary is-inverted">
+                                <span class="icon"><i class="fa fa-github"></i></span>
+                                <span>Show on GitHub</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <span class="title">Welcome to </span>
+            <span class="icon is-medium has-text-grey-dark"><i class="fa fa-2x fa-code"></i></span>
+            <span class="title has-text-grey-dark">Hackanton</span>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+            <!-- START NAV -->
+            <div class="tabs is-centered is-fullwidth is-toggle">
+                <ul>
+                    <li>
+                        <a>
+                            <span class="icon is-small"><i class="fa fa-cog"></i></span>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li class="is-active">
+                        <a>
+                            <span class="icon is-small"><i class="fa fa-search"></i></span>
+                            <span>Search</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- END NAV -->
+
+            <!-- START USER KEYWORDS -->
+            <div class="field">
+                <span>Your keywords:</span>
+            </div>
+            <div class="tags">
+                <!--/*@thymesVar id="user" type="com.hamboomger.model.common.User"*/-->
+                <span th:each="keyword : ${user.searchConfiguration.keywords}"
+                        class="tag" th:text="${keyword}">Kotlin</span>
+            </div>
+            <!-- END USER KEYWORDS  -->
+
+            <div class="control is-centered">
+                <button class="button" id="search-keywords">Search</button>
+            </div>
+
+            <!-- START EVENTS SEARCH -->
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <span class="title is-size-5">Some advanced topic about JPA</span>
+                        </div>
+                        <div class="media-right">
+                            <span class="icon">
+                                <i class="fa fa-clock-o"></i>
+                            </span>
+                            <span class="subtitle is-size-5">27 Dec</span>
+                        </div>
+                    </div>
+                    <div class="content">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Atque eaque fugit porro qui quisquam velit!
+                    </div>
+                </div>
+            </div>
+            <!-- END EVENTS SEARCH -->
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

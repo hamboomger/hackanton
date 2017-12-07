@@ -4,6 +4,7 @@ import com.hamboomger.model.event.IEvent;
 import com.hamboomger.web.auth.ICurrentUserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -11,7 +12,8 @@ import java.util.List;
 /**
  * @author ddorochov
  */
-@RestController("/events")
+@RestController
+@RequestMapping("/events")
 public class SearchRestController {
 
 	private final ICurrentUserProvider userProvider;
