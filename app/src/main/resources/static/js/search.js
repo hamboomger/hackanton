@@ -1,8 +1,14 @@
-('#search-keywords').on('click', event => {
+$('#search-keywords').on('click', event => {
     event.currentTarget.classList.add('is-loading')
-    fetch('/events/search', {
-        credentials: "same-origin"
-    }).then(result => {
-        result.json()
+    searchEvents().then(events => {
+
     })
 });
+
+function searchEvents() {
+    return fetch('/events/search', {
+        credentials: "same-origin"
+    }).then(result => {
+        return result.json()
+    })
+}

@@ -9,7 +9,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.hamboomger.util.EntityBuildingToolkit.*;
+import static com.hamboomger.util.EntityBuildingToolkit.checkNull;
+import static com.hamboomger.util.EntityBuildingToolkit.checkNullOrEmpty;
 
 /**
  * @author ddorochov
@@ -52,17 +53,17 @@ public class CrosswebEvent implements IEvent {
 	@Column
 	private Language language;
 
-	private CrosswebEvent(Builder builder) {
-		this.name = builder.name;
-		this.type = builder.type;
-		this.topics = builder.topics;
-		this.priceType = builder.priceType;
-		this.dateAndTime = builder.dateAndTime;
-		this.pageUrl = builder.pageUrl;
-		this.address = builder.address;
-		this.agenda = builder.agenda;
-		this.description = builder.description;
-		this.language = builder.language;
+	public CrosswebEvent(Importer importer) {
+		this.name = importer.getName();
+		this.type = importer.getType();
+		this.topics = importer.getTopics();
+		this.priceType = importer.getPriceType();
+		this.dateAndTime = importer.getDateAndTime();
+		this.pageUrl = importer.getPageUrl();
+		this.address = importer.getAddress();
+		this.agenda = importer.getEventAgenda();
+		this.description = importer.getDescription();
+		this.language = importer.getLanguage();
 	}
 
 	protected CrosswebEvent() {}
@@ -125,6 +126,19 @@ public class CrosswebEvent implements IEvent {
  	@Override
 	public Language getLanguage() {
 		return language;
+	}
+
+	public interface Importer {
+		String getName();
+		EventType getType();
+		List<String> getTopics();
+		PriceType getPriceType();
+		LocalDateTime getDateAndTime();
+		String getPageUrl();
+		EventAddress getAddress();
+		EventAgenda getEventAgenda();
+		String getDescription();
+		Language getLanguage();
 	}
 
 	public static class Builder {
@@ -191,7 +205,7 @@ public class CrosswebEvent implements IEvent {
 
 		public CrosswebEvent build() {
 			verifyParameters();
-			return new CrosswebEvent(this);
+			return new CrosswebEvent(new BuilderImporter());
 		}
 
 		private void verifyParameters() {
@@ -203,6 +217,59 @@ public class CrosswebEvent implements IEvent {
 			checkNull(address, "address");
 			checkNullOrEmpty(description, "description");
 			checkNull(language, "language");
+		}
+
+		private class BuilderImporter implements Importer {
+
+			@Override
+			public String getName() {
+				return name;
+			}
+
+			@Override
+			public EventType getType() {
+				return type;
+			}
+
+			@Override
+			public List<String> getTopics() {
+				return topics;
+			}
+
+			@Override
+			public PriceType getPriceType() {
+				return priceType;
+			}
+
+			@Override
+			public LocalDateTime getDateAndTime() {
+				return dateAndTime;
+			}
+
+			@Override
+			public String getPageUrl() {
+				return pageUrl;
+			}
+
+			@Override
+			public EventAddress getAddress() {
+				return address;
+			}
+
+			@Override
+			public EventAgenda getEventAgenda() {
+				return agenda;
+			}
+
+			@Override
+			public String getDescription() {
+				return description;
+			}
+
+			@Override
+			public Language getLanguage() {
+				return language;
+			}
 		}
 
 	}

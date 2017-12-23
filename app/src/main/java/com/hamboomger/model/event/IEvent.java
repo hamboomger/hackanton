@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IEvent {
 	@NotNull
-	String getName();
+	String getName();	// TODO change method name to getTitle()
 
 	@NotNull
 	EventType getType();
