@@ -32,18 +32,17 @@ public class CrosswebEventsParser implements IEventsParser {
 	@Override
 	public List<IEvent> parseEvents(boolean newOnly) throws IOException {
 		List<CrosswebEventNameAndLink> eventsInfo = mainPageParser.getEventsShortInfo(CROSSWEB_EVENTS_PAGE_URL);
-		List<IEvent> events = eventsInfo.stream()
+		return eventsInfo.stream()
 				.filter(newOnlyPredicate)
-				.map(parseEventByUrl)
+				.map(parseEventByUrlMapper)
 				.collect(Collectors.toList());
-		return events;
 	}
 
-	private Predicate<CrosswebEventNameAndLink> newOnlyPredicate = (eventInfo -> {
-		return eventsDao.findByName(eventInfo.getName()) == null;
-	});
+	private Predicate<CrosswebEventNameAndLink> newOnlyPredicate = (eventInfo ->
+			eventsDao.findByName(eventInfo.getName()) == null
+	);
 
-	private Function<CrosswebEventNameAndLink, IEvent> parseEventByUrl = (eventInfo) -> {
+	private Function<CrosswebEventNameAndLink, IEvent> parseEventByUrlMapper = (eventInfo) -> {
 		try {
 			return eventPageParser.parse(eventInfo.getUrl());
 		} catch (IOException e) {

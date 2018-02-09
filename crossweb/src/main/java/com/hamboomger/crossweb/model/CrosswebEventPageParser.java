@@ -7,16 +7,20 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author ddorochov
  */
 public class CrosswebEventPageParser {
 
-	// TODO implement
 	public IEvent parse(String pageUrl) throws IOException {
 		Document doc = Jsoup.connect(pageUrl).get();
 
@@ -25,87 +29,98 @@ public class CrosswebEventPageParser {
 		return new CrosswebEvent(importer);
 	}
 
-	private void additionalFields(Element event) {
-		String speakers = event.getElementsByClass("speker-name").text();
-		// через див не получается забрать потому что бывает много параграфов (крч нужно думать !)))
-		String linkOnFacebook = elementAfter("Registration:", event);
-		String linkOnRegistration = elementAfter("Facebook:", event);
-		//need to add agenda and do smth with iteration (too many loops)
-	}
-
 	private class CrosswebEventImporter implements CrosswebEvent.Importer {
 
 		private Element event;
 
-		public CrosswebEventImporter(Element event) {
+		CrosswebEventImporter(Element event) {
 			this.event = event;
 		}
 
 		@Override
 		public String getName() {
-			return elementAfter("Event:", event);
+			return elementTextAfter("Event:", event);
 		}
 
 		@Override
 		public EventType getType() {
-			String eventTypeStr = elementAfter("Event type:", event);
+			String eventTypeStr = elementTextAfter("Event type:", event);
 			return EventType.valueOf(eventTypeStr.toUpperCase());
 		}
 
 		@Override
 		public List<String> getTopics() {
-			String[] topics = elementAfter("Topic:", event).split(", ");
+			String[] topics = elementTextAfter("Topic:", event).split(", ");
 			return Arrays.asList(topics);
 		}
 
 		@Override
 		public PriceType getPriceType() {
-			String priceType = elementAfter("Price:", event);
+			String priceType = elementTextAfter("Price:", event);
 			return PriceType.valueOf(priceType.toUpperCase());
 		}
 
+		private Pattern datePattern = Pattern.compile(".*(\\d{2}\\.\\d{2}\\.\\d{4}).*");
+		private Pattern timePattern = Pattern.compile(".*(\\d{2}:\\d{2}).*");
+
 		@Override
 		public LocalDateTime getDateAndTime() {
-			String dateStr = elementAfter("Date:", event);
-			return LocalDateTime.parse(dateStr);
+            String date = getSubstring(elementTextAfter("Date:", event), datePattern);
+            String time = getSubstring(elementTextAfter("Time:", event), timePattern);
+            return LocalDateTime.of(
+            		LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+					LocalTime.parse(time));
 		}
 
 		@Override
 		public String getPageUrl() {
-			return elementAfter("www:", event);
+			return elementTextAfter("www:", event);
 		}
 
 		@Override
 		public EventAddress getAddress() {
-			String city = elementAfter("City:", event);
-			String place = elementAfter("Place:", event);
-			String address = elementAfter("Address:", event);
+			String city = elementTextAfter("City:", event);
+			String place = elementTextAfter("Place:", event);
+			String address = elementTextAfter("Address:", event);
 			return new EventAddress(city, place, address);
 		}
 
 		@Override
 		public EventAgenda getEventAgenda() {
-			return null;	// TODO implement
+			Element agenda = elementAfter("Agenda:", event);
+			List<String> appointments = agenda.select("ul>li").eachText();
+			List<String> additionalInfo = agenda.select("p").eachText();
+			return new EventAgenda(appointments, String.join("\n", additionalInfo));
 		}
 
 		@Override
 		public String getDescription() {
-			String description = event.getElementsByClass("event-detail description").text();
-			// переделать так как бывает забирает вместе с собой агенду!
-			// через див не получается забрать потому что бывает много параграфов (крч нужно думать !)))
-			return description;
+			return elementTextAfter("Description:", event);
 		}
 
 		@Override
 		public Language getLanguage() {
-			String language = elementAfter("Language:", event);
+			String language = elementTextAfter("Language:", event);
 			return Language.valueOf(language.toUpperCase());
 		}
 	}
 
-	public String elementAfter(String name, Element element) {
-		String query = "div:containsOwn("+name+")";
-		return element.select(query).next().text();
+	private String elementTextAfter(String name, Element element) {
+		return elementAfter(name, element).text();
 	}
+
+	private Element elementAfter(String name, Element element) {
+		String query = "div:containsOwn("+name+")";
+		return element.select(query).next().first();
+	}
+
+	private String getSubstring(String text, Pattern pattern) {
+	    Matcher m = pattern.matcher(text);
+	    if(!m.find()) {
+			throw new IllegalStateException(text + " is not corresponds to pattern " + pattern);
+        }
+
+        return m.group(1);
+    }
 
 }

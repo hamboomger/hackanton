@@ -1,20 +1,23 @@
 package com.hamboomger.crossweb.model;
 
+import com.hamboomger.model.common.Language;
+import com.hamboomger.model.event.EventType;
 import com.hamboomger.model.event.IEvent;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Medai on 06.12.2017.
  */
 public class CrosswebEventPageParserTest {
 
-    public static final String PAGE_URL = "https://crossweb.pl/en/events/open-coffee-ktw-vol-12/";
+    private static final String PAGE_URL = "https://crossweb.pl/en/events/biometric-authentication-luty-2018/";
 
     @Test
     public void testEventParsing() throws IOException {
@@ -23,42 +26,29 @@ public class CrosswebEventPageParserTest {
 
         // act
         IEvent event = parser.parse(PAGE_URL);
-        String description = event.getDescription();
-        String title = event.getName();
-        LocalDateTime dateAndTime = event.getDateAndTime();
 
         // assert
-        Assert.assertTrue();
+        assertNotNull(event);
+        assertNotNull(event.getTitle());
+        assertNotNull(event.getType());
+        assertNotNull(event.getTopics());
+        assertNotNull(event.getPriceType());
+        assertNotNull(event.getDateAndTime());
+        assertNotNull(event.getPageUrl());
+        assertNotNull(event.getAddress());
+        assertNotNull(event.getAgenda());
+        assertNotNull(event.getDescription());
+        assertNotNull(event.getLanguage());
 
-        Elements eventDetail = doc.getElementsByClass("event-detail");
-        for (Element event : eventDetail) {
-            String nameOfevent = getElementAfter("Event:", event);
-            String eventType = getElementAfter("Event type:", event);
-            String date = getElementAfter("Date:", event);
-            String time = getElementAfter("Time:", event);
-            String language = getElementAfter("Language:", event);
-            String price = getElementAfter("Price:", event);
-            String city = getElementAfter("City:", event);
-            String place = getElementAfter("Place:", event);
-            String address = getElementAfter("Address:", event);
-            String linkOfEvent = getElementAfter("www:", event);
-            for(String topikTosplit : getElementAfter("Topic:", event).split(", ")){
-                topik.add(topikTosplit);
-            }
-            String speakers = event.getElementsByClass("speker-name").text();
-            String description = event.getElementsByClass("event-detail description").text();// переделать так как бывает забирает вместе с собой агенду!
-            // через див не получается забрать потому что бывает много параграфов (крч нужно думать !)))
-            String linkOnFacebook = getElementAfter("Registration:", event);
-            String linkOnRegistration = getElementAfter("Facebook:", event);
-            //need to add agenda and do smth with itaration (too many loops)
-            eventAricle.add(new CrossWebEventArticleTest(nameOfevent, eventType, topik, date, time, language, price, city, place, address, linkOfEvent, speakers,description,linkOnFacebook,linkOnRegistration));
-        }
-        System.out.println(eventAricle);
+        assertEquals(event.getTitle(), "Biometric Authentication");
+        assertEquals(event.getType(), EventType.MEETUP);
+        assertEquals(event.getTopics(), Arrays.asList("IT", "security"));
+        assertEquals(event.getDateAndTime(), LocalDateTime.of(2018, 2, 8, 18, 0));
+        assertEquals(event.getPageUrl(), "https://crossweb.pl/en/events/biometric-authentication-luty-2018/");
+        assertEquals(event.getAddress().getCity(), "Warszawa");
+        assertEquals(event.getAddress().getPlace(), "InnVento");
+        assertEquals(event.getAddress().getFullAddress(), "Kasprzaka 25");
+        assertEquals(event.getLanguage(), Language.ENGLISH);
     }
-    
-    public String getElementAfter(String name, Element element) {
-        String query = "div:containsOwn("+name+")";
-        return element.select(query).next().text();
-    }
-    
+
 }
