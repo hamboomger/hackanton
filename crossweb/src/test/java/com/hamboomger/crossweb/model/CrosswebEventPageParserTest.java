@@ -44,7 +44,7 @@ public class CrosswebEventPageParserTest {
         assertEquals(event.getType(), EventType.MEETUP);
         assertEquals(event.getTopics(), Arrays.asList("IT", "security"));
         assertEquals(event.getDateAndTime(), LocalDateTime.of(2018, 2, 8, 18, 0));
-        assertEquals(event.getPageUrl(), "https://crossweb.pl/en/events/biometric-authentication-luty-2018/");
+        assertEquals(event.getPageUrl(), PAGE_URL);
         assertEquals(event.getAddress().getCity(), "Warszawa");
         assertEquals(event.getAddress().getPlace(), "InnVento");
         assertEquals(event.getAddress().getFullAddress(), "Kasprzaka 25");

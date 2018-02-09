@@ -24,9 +24,15 @@ public interface IEvent {
 	@NotNull
 	PriceType getPriceType();
 
+	/**
+	 * @return date and time of this event
+	 */
 	@NotNull
 	LocalDateTime getDateAndTime();
 
+	/**
+	 * @return page from which this event was parsed
+	 */
 	@NotNull
 	String getPageUrl();
 

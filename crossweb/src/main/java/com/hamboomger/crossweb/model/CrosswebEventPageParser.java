@@ -21,7 +21,10 @@ import java.util.regex.Pattern;
  */
 public class CrosswebEventPageParser {
 
+	private String pageUrl;
+
 	public IEvent parse(String pageUrl) throws IOException {
+		this.pageUrl = pageUrl;
 		Document doc = Jsoup.connect(pageUrl).get();
 
 		Element eventDetail = doc.getElementsByClass("event-detail").get(0);
@@ -74,7 +77,7 @@ public class CrosswebEventPageParser {
 
 		@Override
 		public String getPageUrl() {
-			return elementTextAfter("www:", event);
+			return pageUrl;
 		}
 
 		@Override
@@ -88,6 +91,8 @@ public class CrosswebEventPageParser {
 		@Override
 		public EventAgenda getEventAgenda() {
 			Element agenda = elementAfter("Agenda:", event);
+			if(agenda == null) return null;
+
 			List<String> appointments = agenda.select("ul>li").eachText();
 			List<String> additionalInfo = agenda.select("p").eachText();
 			return new EventAgenda(appointments, String.join("\n", additionalInfo));
