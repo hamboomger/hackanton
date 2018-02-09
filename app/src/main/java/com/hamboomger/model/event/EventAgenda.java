@@ -1,7 +1,5 @@
 package com.hamboomger.model.event;
 
-import com.hamboomger.model.common.Appointment;
-
 import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -17,39 +15,23 @@ import java.util.List;
 public class EventAgenda {
 
 	@ElementCollection
-	private List<Appointment> appointments;
+	private List<String> appointments;
 
 	@Column
 	private String additionalInfo;
 
-	public EventAgenda(Builder builder) {
-		this.appointments = builder.appointments;
-		this.additionalInfo = builder.additionalInfo.toString();
+	public EventAgenda(List<String> appointments, String additionalInfo) {
+		this.appointments = appointments;
+		this.additionalInfo = additionalInfo;
+	}
+
+	EventAgenda(List<String> appointments) {
+		this.appointments = appointments;
 	}
 
 	protected EventAgenda() {}
 
-	public static class Builder {
-		private List<Appointment> appointments = new ArrayList<>();
-		private StringBuilder additionalInfo = new StringBuilder();
-
-		public Builder addAppointment(Appointment appointment) {
-			appointments.add(appointment);
-			return this;
-		}
-
-		public Builder addAdditionalInfo(String info) {
-			additionalInfo.append(info).append("\n");
-			return this;
-		}
-
-		public EventAgenda build() {
-			return new EventAgenda(this);
-		}
-
-	}
-
-	public List<Appointment> getAppointments() {
+	public List<String> getAppointments() {
 		return appointments;
 	}
 

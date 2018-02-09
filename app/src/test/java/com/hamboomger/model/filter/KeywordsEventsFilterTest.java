@@ -1,6 +1,5 @@
 package com.hamboomger.model.filter;
 
-import com.hamboomger.model.common.Appointment;
 import com.hamboomger.model.common.BaseWordsSearchStrategy;
 import com.hamboomger.model.common.exception.EntityBuildingException;
 import com.hamboomger.model.event.EventAgenda;
@@ -11,7 +10,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -101,14 +99,10 @@ public class KeywordsEventsFilterTest {
 	}
 
 	private EventAgenda initAgenda() {
-		Appointment rubyAppointment = new Appointment(LocalTime.MIDNIGHT, "Ruby on Rails for beginners");
-		Appointment anotherAppointment = new Appointment(LocalTime.now(), "Something another");
+		String rubyAppointment = "Ruby on Rails for beginners";
+		String anotherAppointment = "Something another";
 		String additionalInfo = "Maybe we should say some additional words about Kotlin language.";
-		return new EventAgenda.Builder()
-				.addAdditionalInfo(additionalInfo)
-				.addAppointment(rubyAppointment)
-				.addAppointment(anotherAppointment)
-				.build();
+		return new EventAgenda(Arrays.asList(rubyAppointment, anotherAppointment), additionalInfo);
 	}
 
 }

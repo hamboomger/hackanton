@@ -1,7 +1,6 @@
 package com.hamboomger.crossweb.dao;
 
 import com.hamboomger.crossweb.model.CrosswebEvent;
-import com.hamboomger.model.common.Appointment;
 import com.hamboomger.model.common.Language;
 import com.hamboomger.model.event.EventAddress;
 import com.hamboomger.model.event.EventAgenda;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,22 +36,20 @@ public class CrosswebEventsDaoTest {
 		dao.deleteAll();
 		dao.saveAndFlush(event);
 
-		CrosswebEvent eventFromDao = dao.findByName(event.getName());
+		CrosswebEvent eventFromDao = dao.findByName(event.getTitle());
 		assertThat(eventFromDao, notNullValue());
 		assertThat(eventFromDao.getPageUrl(), equalTo(event.getPageUrl()));
 	}
 
 	private CrosswebEvent createEvent() {
-		EventAgenda eventAgenda = new EventAgenda.Builder()
-				.addAppointment(new Appointment(LocalTime.now(), "Some appointment"))
-				.addAppointment(new Appointment(LocalTime.now(), "Another appointment"))
-				.addAdditionalInfo("Some info")
-				.addAdditionalInfo("Another info")
-				.build();
+		EventAgenda eventAgenda = new EventAgenda(
+				Arrays.asList("Some appointment", "Another appointment"),
+				"Some info\nAnother info"
+		);
 
 		List<String> topics = Arrays.asList("First topic", "Second topic");
 
-		CrosswebEvent event = new CrosswebEvent.Builder()
+		return new CrosswebEvent.Builder()
 			.setName("Great event")
 			.setDescription("Event description")
 			.setAddress(new EventAddress("Warsaw", "Warsaw Spire", "al. Jerozolimskie"))
@@ -65,8 +61,6 @@ public class CrosswebEventsDaoTest {
 			.setTopics(topics)
 			.setType(EventType.MEETUP)
 			.build();
-
-		return event;
 	}
 
 }

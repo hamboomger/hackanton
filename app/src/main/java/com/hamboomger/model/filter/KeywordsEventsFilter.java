@@ -1,6 +1,5 @@
 package com.hamboomger.model.filter;
 
-import com.hamboomger.model.common.Appointment;
 import com.hamboomger.model.common.IWordsSearchStrategy;
 import com.hamboomger.model.event.EventAgenda;
 import com.hamboomger.model.event.IEvent;
@@ -47,9 +46,8 @@ public class KeywordsEventsFilter implements IEventsFilter {
 		EventAgenda agenda = event.getAgenda();
 		if(agenda == null) return false;
 
-		for(Appointment appointment : agenda.getAppointments()) {
-			String appointmentDescription = appointment.getDescription();
-			if(searchStrategy.textContains(appointmentDescription, keyword))
+		for(String appointment : agenda.getAppointments()) {
+			if(searchStrategy.textContains(appointment, keyword))
 				return true;
 		}
 

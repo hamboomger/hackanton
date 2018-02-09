@@ -1,9 +1,8 @@
 package com.hamboomger.model.event;
 
-import com.hamboomger.model.common.Appointment;
 import org.junit.Test;
 
-import java.time.LocalTime;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -15,18 +14,11 @@ public class EventAgendaTest {
 	@Test
 	public void testAssembling() {
 		// arrange
-		Appointment midnightAppointment = new Appointment(LocalTime.MIDNIGHT, "Midnight event");
-		Appointment noonAppointment = new Appointment(LocalTime.NOON, "Noon event");
+		String midnightAppointment = "Midnight event";
+		String noonAppointment = "Noon event";
 
 		// act
-		EventAgenda.Builder builder = new EventAgenda.Builder()
-				.addAppointment(midnightAppointment)
-				.addAppointment(noonAppointment)
-				.addAdditionalInfo("A")
-				.addAdditionalInfo("B")
-				.addAdditionalInfo("C");
-
-		EventAgenda agenda = builder.build();
+		EventAgenda agenda = new EventAgenda(Arrays.asList(midnightAppointment, noonAppointment));
 
 		// assert
 		assertThat(agenda.getAdditionalInfo(),
