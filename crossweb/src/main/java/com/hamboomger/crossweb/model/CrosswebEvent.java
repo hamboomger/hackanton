@@ -53,7 +53,7 @@ public class CrosswebEvent implements IEvent {
 	@Column
 	private Language language;
 
-	public CrosswebEvent(Importer importer) {
+	CrosswebEvent(Importer importer) {
 		this.name = importer.getName();
 		this.type = importer.getType();
 		this.topics = importer.getTopics();
@@ -70,7 +70,7 @@ public class CrosswebEvent implements IEvent {
 
 	@NotNull
 	@Override
-	public String getName() {
+	public String getTitle() {
 		return name;
 	}
 

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
  * @author ddorochov
  */
 public class BaseWordsSearchStrategy implements IWordsSearchStrategy {
+
 	@Override
 	public boolean textContains(String text, String keyword) {
 		boolean multipleWords = keyword.contains("\\s");
@@ -21,4 +22,5 @@ public class BaseWordsSearchStrategy implements IWordsSearchStrategy {
 			return pattern.matcher(textLowerCased).matches();
 		}
 	}
+
 }

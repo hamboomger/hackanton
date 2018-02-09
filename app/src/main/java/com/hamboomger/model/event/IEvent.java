@@ -11,8 +11,9 @@ import java.util.List;
  * @author ddorochov
  */
 public interface IEvent {
+
 	@NotNull
-	String getName();	// TODO change method name to getTitle()
+	String getTitle();
 
 	@NotNull
 	EventType getType();
