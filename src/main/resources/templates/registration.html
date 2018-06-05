@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}" />
+</head>
+<body>
+    <section class="hero is-success is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-half-desktop is-half-tablet is-5-widescreen is-offset-3">
+                    <h3 class="title has-text-grey">Register</h3>
+                    <p class="subtitle has-text-grey">Please register to enter hackanton.</p>
+                    <div class="box">
+                        <figure class="avatar">
+                            <img src="https://placehold.it/128x128" />
+                        </figure>
+                        <!--/*@thymesVar id="user" type="com.hamboomger.model.common.User"*/-->
+                        <form th:action="@{/registration}" th:object="${user}" method="post">
+                            <div class="field">
+                                <div class="control">
+                                    <input th:field="*{username}" class="input is-large"
+                                           th:classappend="${#fields.hasErrors('username')} ? 'is-danger' : ''"
+                                           placeholder="Username" autofocus="">
+                                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                           class="help is-danger"></p>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input th:field="*{email}" class="input is-large"
+                                           th:classappend="${#fields.hasErrors('email')} ? 'is-danger' : ''" type="email"
+                                           placeholder="Email address" autofocus="">
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="help is-danger"></p>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input th:field="*{password}" class="input is-large"
+                                           type="password" placeholder="Password">
+                                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                       class="help is-danger"></p>
+                                </div>
+                            </div>
+
+                            <input type="submit" class="button is-info is-large" value="Register"/>
+                        </form>
+                    </div>
+                    <p class="has-text-grey">
+                        <a href="../../../../app/src/main/resources">Sign In</a> |
+                        <a href="../../../../app/src/main/resources">Need Help?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
+</body>
+</html>
