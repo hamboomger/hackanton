@@ -27,6 +27,7 @@ import static org.junit.Assert.assertThat;
 @DataJpaTest
 public class CrosswebEventsDaoTest {
 
+	public static final String PLACE = "Warsaw Spire";
 	@Autowired
 	private CrosswebEventsDao dao;
 
@@ -39,12 +40,12 @@ public class CrosswebEventsDaoTest {
 		CrosswebEvent eventFromDao = dao.findByName(event.getTitle());
 		assertThat(eventFromDao, notNullValue());
 		assertThat(eventFromDao.getPageUrl(), equalTo(event.getPageUrl()));
+		assertThat(eventFromDao.getAddress().getPlace(), equalTo(PLACE));
 	}
 
 	private CrosswebEvent createEvent() {
 		EventAgenda eventAgenda = new EventAgenda(
-				Arrays.asList("Some appointment", "Another appointment"),
-				"Some info\nAnother info"
+				Arrays.asList("Some appointment", "Another appointment")
 		);
 
 		List<String> topics = Arrays.asList("First topic", "Second topic");
@@ -52,7 +53,7 @@ public class CrosswebEventsDaoTest {
 		return new CrosswebEvent.Builder()
 			.setName("Great event")
 			.setDescription("Event description")
-			.setAddress(new EventAddress("Warsaw", "Warsaw Spire", "al. Jerozolimskie"))
+			.setAddress(new EventAddress("Warsaw", PLACE, "al. Jerozolimskie"))
 			.setAgenda(eventAgenda)
 			.setDateAndTime(LocalDateTime.now())
 			.setPageUrl("http://mockurl.com")

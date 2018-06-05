@@ -1,7 +1,11 @@
 package com.hamboomger.crossweb.model;
 
 import com.hamboomger.model.common.Language;
-import com.hamboomger.model.event.*;
+import com.hamboomger.model.event.EventAddress;
+import com.hamboomger.model.event.EventAgenda;
+import com.hamboomger.model.event.EventType;
+import com.hamboomger.model.event.IEvent;
+import com.hamboomger.model.event.PriceType;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -94,8 +98,7 @@ public class CrosswebEventPageParser {
 			if(agenda == null) return null;
 
 			List<String> appointments = agenda.select("ul>li").eachText();
-			List<String> additionalInfo = agenda.select("p").eachText();
-			return new EventAgenda(appointments, String.join("\n", additionalInfo));
+			return new EventAgenda(appointments);
 		}
 
 		@Override

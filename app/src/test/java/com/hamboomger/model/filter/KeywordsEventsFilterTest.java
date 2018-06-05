@@ -101,8 +101,8 @@ public class KeywordsEventsFilterTest {
 	private EventAgenda initAgenda() {
 		String rubyAppointment = "Ruby on Rails for beginners";
 		String anotherAppointment = "Something another";
-		String additionalInfo = "Maybe we should say some additional words about Kotlin language.";
-		return new EventAgenda(Arrays.asList(rubyAppointment, anotherAppointment), additionalInfo);
+		String thirdAppointment = "And, of course, Kotlin.";
+		return new EventAgenda(Arrays.asList(rubyAppointment, anotherAppointment, thirdAppointment));
 	}
 
 }

@@ -51,8 +51,7 @@ public class KeywordsEventsFilter implements IEventsFilter {
 				return true;
 		}
 
-		String additionalInfo = agenda.getAdditionalInfo();
-		return searchStrategy.textContains(additionalInfo, keyword);
+		return false;
 	}
 
 }
