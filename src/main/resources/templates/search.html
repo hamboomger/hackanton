@@ -73,7 +73,7 @@
                 <span>Your keywords:</span>
             </div>
             <div class="tags">
-                <!--/*@thymesVar id="user" type="com.hamboomger.model.common.User"*/-->
+                <!--/*@thymesVar id="user" type="com.hackanton.user.User"*/-->
                 <span th:each="keyword : ${user.searchConfiguration.keywords}"
                         class="tag" th:text="${keyword}">Kotlin</span>
             </div>

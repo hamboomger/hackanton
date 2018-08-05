@@ -5,7 +5,7 @@ version = '0.1'
 sourceCompatibility = 1.8
 
 springBoot {
-    mainClass = 'com.hamboomger.MainApplication'
+    mainClass = 'com.hackanton.MainApplication'
 }
 
 dependencies {
