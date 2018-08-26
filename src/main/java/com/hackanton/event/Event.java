@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author ddorochov
  */
-public interface IEvent {
+public interface Event {
 
 	@NotNull
 	String getTitle();

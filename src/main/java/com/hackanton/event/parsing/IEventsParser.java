@@ -1,6 +1,6 @@
 package com.hackanton.event.parsing;
 
-import com.hackanton.event.IEvent;
+import com.hackanton.event.Event;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,15 +13,15 @@ import java.util.stream.Stream;
  */
 public interface IEventsParser {
 
-	List<IEvent> parseEvents(boolean newOnly) throws IOException;
+	List<Event> parseEvents(boolean newOnly) throws IOException;
 
-	default List<IEvent> parseEvents() throws IOException {
+	default List<Event> parseEvents() throws IOException {
 		return parseEvents(false);
 	}
 
-	default List<IEvent> parseEvents(boolean newOnly, List<Predicate<IEvent>> filters) throws IOException {
-		Stream<IEvent> stream = parseEvents(newOnly).stream();
-		for(Predicate<IEvent> filter : filters) {
+	default List<Event> parseEvents(boolean newOnly, List<Predicate<Event>> filters) throws IOException {
+		Stream<Event> stream = parseEvents(newOnly).stream();
+		for(Predicate<Event> filter : filters) {
 			stream = stream.filter(filter);
 		}
 

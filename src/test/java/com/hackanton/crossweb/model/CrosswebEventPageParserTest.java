@@ -1,8 +1,8 @@
 package com.hackanton.crossweb.model;
 
 import com.hackanton.crossweb.parsing.CrosswebEventPageParser;
+import com.hackanton.event.Event;
 import com.hackanton.event.EventType;
-import com.hackanton.event.IEvent;
 import com.hackanton.event.Language;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class CrosswebEventPageParserTest {
         CrosswebEventPageParser parser = new CrosswebEventPageParser();
 
         // act
-        IEvent event = parser.parse(PAGE_URL);
+        Event event = parser.parse(PAGE_URL);
 
         // assert
         assertNotNull(event);

@@ -1,8 +1,8 @@
 package com.hackanton.event.filter;
 
 import com.hackanton.common.IWordsSearchStrategy;
+import com.hackanton.event.Event;
 import com.hackanton.event.EventAgenda;
-import com.hackanton.event.IEvent;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class KeywordsEventsFilter implements IEventsFilter {
 	}
 
 	@Override
-	public boolean apply(IEvent event) {
+	public boolean apply(Event event) {
 		for(String keyword : keywords) {
 			boolean eventContainsKeyword = checkInDescription(keyword, event);
 			if(!eventContainsKeyword)
@@ -37,12 +37,12 @@ public class KeywordsEventsFilter implements IEventsFilter {
 		return true;
 	}
 
-	private boolean checkInDescription(String keyword, IEvent event) {
+	private boolean checkInDescription(String keyword, Event event) {
 		String description = event.getDescription();
 		return searchStrategy.textContains(description, keyword);
 	}
 
-	private boolean checkInAgenda(String keyword, IEvent event) {
+	private boolean checkInAgenda(String keyword, Event event) {
 		EventAgenda agenda = event.getAgenda();
 		if(agenda == null) return false;
 

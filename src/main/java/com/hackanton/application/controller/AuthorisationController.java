@@ -1,4 +1,4 @@
-package com.hackanton.application;
+package com.hackanton.application.controller;
 
 import com.hackanton.user.User;
 import com.hackanton.user.UserService;

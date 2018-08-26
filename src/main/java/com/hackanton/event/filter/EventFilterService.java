@@ -2,7 +2,7 @@ package com.hackanton.event.filter;
 
 import com.hackanton.event.EventsSearchConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,21 +10,20 @@ import java.util.List;
 /**
  * @author ddorochov
  */
-@Component
-public class MainEventsFilterFactory implements IEventsFilterFactory {
+@Service
+public class EventFilterService {
 
 	private final List<ISinglePropertyFilterFactory> filterFactories;
 
 	@Autowired(required = false)
-	public MainEventsFilterFactory(List<ISinglePropertyFilterFactory> filterFactories) {
+	public EventFilterService(List<ISinglePropertyFilterFactory> filterFactories) {
 		this.filterFactories = filterFactories;
 	}
 
-	public MainEventsFilterFactory() {
+	public EventFilterService() {
 		this.filterFactories = new ArrayList<>();
 	}
 
-	@Override
 	public IEventsFilter createFilter(EventsSearchConfiguration configuration) {
 		EventsFiltersAggregator filtersAggregator = new EventsFiltersAggregator();
 		for(ISinglePropertyFilterFactory factory : filterFactories) {

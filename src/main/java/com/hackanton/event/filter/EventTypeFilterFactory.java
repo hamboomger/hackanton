@@ -1,8 +1,8 @@
 package com.hackanton.event.filter;
 
+import com.hackanton.event.Event;
 import com.hackanton.event.EventType;
 import com.hackanton.event.EventsSearchConfiguration;
-import com.hackanton.event.IEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class EventTypeFilterFactory implements ISinglePropertyFilterFactory {
 		}
 
 		@Override
-		public boolean apply(IEvent event) {
+		public boolean apply(Event event) {
 			EventType eventType = event.getType();
 			return eventTypes.contains(eventType);
 		}

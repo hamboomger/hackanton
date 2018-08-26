@@ -1,13 +1,13 @@
 package com.hackanton.event.filter;
 
-import com.hackanton.event.IEvent;
+import com.hackanton.event.Event;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Filter that aggregates a list of filters inside.
- * It's method {@link #apply(IEvent)} returns true only if
+ * It's method {@link #apply(Event)} returns true only if
  * all inner filters also returns true.
  * @author ddorochov
  */
@@ -22,7 +22,7 @@ public class EventsFiltersAggregator implements IEventsFilter {
 	}
 
 	@Override
-	public boolean apply(IEvent event) {
+	public boolean apply(Event event) {
 		for(IEventsFilter filter : filters)
 			if (!filter.apply(event)) return false;
 		return true;

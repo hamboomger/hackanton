@@ -1,6 +1,6 @@
 package com.hackanton.event.filter;
 
-import com.hackanton.event.IEvent;
+import com.hackanton.event.Event;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -16,7 +16,7 @@ public class EventsFiltersAggregatorTest {
 	@Test
 	public void testTrueAndFalseFilters() {
 		//arrange
-		IEvent event = mock(IEvent.class);
+		Event event = mock(Event.class);
 		IEventsFilter filterReturningTrue = getMockFilterReturningTrue(event);
 		IEventsFilter filterReturningFalse = getMockFilterReturningFalse(event);
 
@@ -34,7 +34,7 @@ public class EventsFiltersAggregatorTest {
 	public void testTrueAndTrueFilters() {
 		//arrange
 		//arrange
-		IEvent event = mock(IEvent.class);
+		Event event = mock(Event.class);
 		IEventsFilter filterReturningTrue = getMockFilterReturningTrue(event);
 		IEventsFilter anotherFilterReturningTrue = getMockFilterReturningTrue(event);
 
@@ -48,13 +48,13 @@ public class EventsFiltersAggregatorTest {
 		assertTrue(result);
 	}
 
-	private IEventsFilter getMockFilterReturningTrue(IEvent event) {
+	private IEventsFilter getMockFilterReturningTrue(Event event) {
 		IEventsFilter filter = mock(IEventsFilter.class);
 		when(filter.apply(event)).thenReturn(true);
 		return filter;
 	}
 
-	private IEventsFilter getMockFilterReturningFalse(IEvent event) {
+	private IEventsFilter getMockFilterReturningFalse(Event event) {
 		IEventsFilter filter = mock(IEventsFilter.class);
 		when(filter.apply(event)).thenReturn(false);
 		return filter;

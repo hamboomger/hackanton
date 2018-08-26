@@ -1,8 +1,8 @@
 package com.hackanton.event.filter;
 
+import com.hackanton.event.Event;
 import com.hackanton.event.EventType;
 import com.hackanton.event.EventsSearchConfiguration;
-import com.hackanton.event.IEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class EventTypeFilterFactoryTest {
 	@Test
 	public void checkWhenTypeExists() {
 		// arrange
-		IEvent event = mock(IEvent.class);
+		Event event = mock(Event.class);
 		when(event.getType()).thenReturn(EventType.HACKATHON);
 
 		// act

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author ddorochov
@@ -31,6 +32,10 @@ public class UserService {
 
 	public User findByName(String username) {
 		return userRepository.findByUsername(username);
+	}
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 
 	@Transactional

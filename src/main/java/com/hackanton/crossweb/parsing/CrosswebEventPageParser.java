@@ -24,7 +24,7 @@ public class CrosswebEventPageParser {
 
 	private String pageUrl;
 
-	public IEvent parse(String pageUrl) throws IOException {
+	public Event parse(String pageUrl) throws IOException {
 		this.pageUrl = pageUrl;
 		Document doc = Jsoup.connect(pageUrl).get();
 

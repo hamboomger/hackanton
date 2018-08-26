@@ -1,4 +1,4 @@
-package com.hackanton.application;
+package com.hackanton.application.controller;
 
 import org.springframework.boot.context.config.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;

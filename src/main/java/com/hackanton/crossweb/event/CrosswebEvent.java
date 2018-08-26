@@ -16,7 +16,7 @@ import static com.hackanton.common.EntityBuildingToolkit.checkNullOrEmpty;
  */
 @Entity
 @Access(AccessType.FIELD)
-public class CrosswebEvent implements IEvent {
+public class CrosswebEvent implements Event {
 
 	@Id
 	@GeneratedValue

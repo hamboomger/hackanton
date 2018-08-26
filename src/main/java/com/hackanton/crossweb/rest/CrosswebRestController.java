@@ -1,7 +1,7 @@
 package com.hackanton.crossweb.rest;
 
-import com.hackanton.crossweb.CrosswebScannerService;
-import com.hackanton.event.IEvent;
+import com.hackanton.crossweb.scrapping.CrosswebScannerService;
+import com.hackanton.event.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +23,8 @@ public class CrosswebRestController {
 	}
 
 	@GetMapping("/scan")
-	public List<IEvent> scanEvents() throws IOException {
-		return scannerService.scanEvents(false);
+	public List<Event> scanEvents() throws IOException {
+		return scannerService.scanNewEvents();
 	}
 
 }

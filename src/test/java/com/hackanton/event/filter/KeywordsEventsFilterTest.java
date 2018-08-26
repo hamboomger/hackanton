@@ -2,8 +2,8 @@ package com.hackanton.event.filter;
 
 import com.hackanton.common.BaseWordsSearchStrategy;
 import com.hackanton.common.exception.EntityBuildingException;
+import com.hackanton.event.Event;
 import com.hackanton.event.EventAgenda;
-import com.hackanton.event.IEvent;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
  */
 public class KeywordsEventsFilterTest {
 
-	private IEvent commonEvent;
+	private Event commonEvent;
 
 	private String[] descriptionKeywords = {"Python", "Javascript", "Angular"};
 	private String[] agendaKeywords = {"Kotlin", "Ruby on Rails"};
@@ -35,7 +35,7 @@ public class KeywordsEventsFilterTest {
 		String description = IOUtils.toString(is);
 		EventAgenda agenda = initAgenda();
 
-		this.commonEvent = mock(IEvent.class);
+		this.commonEvent = mock(Event.class);
 		when(commonEvent.getAgenda()).thenReturn(agenda);
 		when(commonEvent.getDescription()).thenReturn(description);
 	}

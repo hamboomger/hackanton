@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css" />
+    <title>New events</title>
+</head>
+<!--/*@thymesVar id="event" type="com.hackanton.event.Event"*/-->
+<body>
+    <div class="card" th:fragment="event_card (event)">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4" th:text="${event.title}">Awesome Javascript event TODAY!</p>
+                    <p class="subtitle is-6" th:text="${event.type}">Hackathon</p>
+                </div>
+            </div>
+
+            <div class="content" th:text="event.description">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                <a href="#">#css</a> <a href="#">#responsive</a>
+                <br>
+                <time th:time="event.dateAndTime">11:09 PM - 1 Jan 2016</time>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
